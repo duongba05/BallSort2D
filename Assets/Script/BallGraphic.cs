@@ -28,4 +28,15 @@ public class BallGraphic : MonoBehaviour
                 break;
         }
     }
+    public static BallGraphicType ConvertFromGameType(Game.BallType ballType)
+    {
+        switch (ballType)
+        {
+            case Game.BallType.RED:
+                return BallGraphicType.RED;
+            case Game.BallType.GREEN:
+                return BallGraphicType.GREEN;
+        }
+        return BallGraphicType.NONE;
+    }
 }

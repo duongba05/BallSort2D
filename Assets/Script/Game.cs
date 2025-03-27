@@ -13,18 +13,26 @@ public class Game : MonoBehaviour
         bottles = new List<Bottle>();
         bottles.Add(new Bottle
         {
-            balls = new List<Ball> { new Ball {type = BallType.RED }, new Ball { type = BallType.RED } }
+            balls = new List<Ball> { new Ball {type = BallType.RED }, new Ball { type = BallType.GREEN }, new Ball { type = BallType.GREEN } }
         });
         bottles.Add(new Bottle
         {
-            balls = new List<Ball> { new Ball { type = BallType.RED }, new Ball { type = BallType.RED } }
+            balls = new List<Ball> { new Ball { type = BallType.RED }, new Ball { type = BallType.RED }, new Ball { type = BallType.GREEN } }
+        });
+        bottles.Add(new Bottle
+        {
+            balls = new List<Ball>()
+        });
+        bottles.Add(new Bottle
+        {
+            balls = new List<Ball>()
         });
         graphic.RefreshBottleGraphic(bottles);
         yield return new WaitForSeconds(2f); 
         //PrintBottles();
         //switch ball tu 1 sang 2
-        SwitchBall(bottles[0], bottles[1]);
-        graphic.RefreshBottleGraphic(bottles);
+        //SwitchBall(bottles[0], bottles[1]);
+        //graphic.RefreshBottleGraphic(bottles);
         //PrintBottles();
     }
     public void PrintBottles()
@@ -52,7 +60,7 @@ public class Game : MonoBehaviour
         List<Ball> bottle2Balls = bottle2.balls;
 
         if(bottle1Balls.Count == 0) return;
-        if (bottle1Balls.Count == 4) return;
+        if (bottle2Balls.Count == 4) return;
 
 
         int index = bottle1Balls.Count - 1; 
@@ -71,12 +79,91 @@ public class Game : MonoBehaviour
             {
                 bottle1Balls.RemoveAt(i);
                 bottle2Balls.Add(ball);
+                if(bottle2Balls.Count == 4)
+                {
+                    break;
+                }
             }
             else
             {
                 break;
             }
         }
+    }
+    public void SwitchBall(int bottleIndex1, int bottleIndex2) 
+    {
+        Bottle b1 = bottles[bottleIndex1];  
+        Bottle b2 = bottles[bottleIndex2];
+        SwitchBall(b1, b2);
+        graphic.RefreshBottleGraphic(bottles);
+    } 
+    public List<SwitchBallCommand> CheckSwitchBall(int bottleIndex1, int bottleIndex2)
+    {
+        List<SwitchBallCommand> commands = new List<SwitchBallCommand>();
+        Bottle bottle1 = bottles[bottleIndex1];
+        Bottle bottle2 = bottles[bottleIndex2];
+
+        List<Ball> bottle1Balls = bottle1.balls;
+        List<Ball> bottle2Balls = bottle2.balls;
+
+        if (bottle1Balls.Count == 0) return commands;
+        if (bottle2Balls.Count == 4) return commands;
+
+        int index = bottle1Balls.Count - 1;
+        Ball b = bottle1Balls[index];
+
+        var type = b.type;
+
+        if (bottle2Balls.Count > 0 && bottle2Balls[bottle2Balls.Count - 1].type != type)
+        {
+            return commands;
+        }
+
+        int targetIndex = bottle2Balls.Count;
+
+        for (int i = index; i >= 0; i--)
+        {
+            Ball ball = bottle1Balls[i];
+            if (ball.type == type)
+            {
+                // i=> targetIndex / targetIndex++ / if targetIndex > =4 bbreak;
+                int fromBallIndex = i;
+                int toBallIndex = targetIndex;
+                int fromBottleIndex = bottleIndex1;
+                int toBottleIndex = bottleIndex2;
+
+                commands.Add(new SwitchBallCommand
+                {
+                    type = type,    
+                    fromBallIndex = fromBallIndex,
+                    toBallIndex = toBallIndex,
+                    fromBottleIndex = fromBottleIndex,
+                    toBottleIndex = toBottleIndex,
+                });
+                targetIndex++;  
+                //bottle1Balls.RemoveAt(i);
+                //bottle2Balls.Add(ball);
+                if (targetIndex == 4)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return commands;
+    }
+    public class SwitchBallCommand
+    {
+        public BallType type;
+        public int fromBottleIndex;
+        public int fromBallIndex;
+
+        public int toBottleIndex;
+        public int toBallIndex;
     }
     public bool CheckWinCondition()
     {
