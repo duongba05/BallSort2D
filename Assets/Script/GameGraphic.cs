@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameGraphic : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class GameGraphic : MonoBehaviour
     public Game game;
     public List<BottleGraphic> bottleGraphics;
     public BallGraphic prefabBallGraphic;
+    private BallGraphic previewBall;
     private void Start()
     {
         game = FindObjectOfType<Game>();
         selectedBottleIndex = -1;
+
+        previewBall =Instantiate(prefabBallGraphic);
     }
     public void RefreshBottleGraphic(List<Game.Bottle> bottles)
     {
@@ -39,17 +43,67 @@ public class GameGraphic : MonoBehaviour
         if (selectedBottleIndex == -1)
         {
             selectedBottleIndex = bottleIndex;
+            StartCoroutine(MoveBallUp(bottleIndex));
         }
         else
         {
+            if(selectedBottleIndex == bottleIndex)
+            {
+                StartCoroutine(MoveBallDown(bottleIndex));
+                selectedBottleIndex=-1;
+            }
+            else
+            {
+                StartCoroutine(SwitchBallCoroutine(selectedBottleIndex, bottleIndex));
+            }
             //game.SwitchBall(selectedBottleIndex, bottleIndex);
             //selectedBottleIndex = -1;
             //if (game.CheckWinCondition())
             //{
             //    Debug.Log("Win!");
             //}
-            StartCoroutine(SwitchBallCoroutine(selectedBottleIndex, bottleIndex));
         }
+    }
+    private IEnumerator MoveBallUp(int bottleIndex)
+    {
+        Vector3 upPosition = bottleGraphics[bottleIndex].GetBottleUpPosition();
+        List<Game.Ball> ballList = game.bottles[bottleIndex].balls;
+        // get highest ball
+        Game.Ball b = ballList[ballList.Count - 1];
+        Vector3 ballPosition = bottleGraphics[bottleIndex].GetBallPosition(ballList.Count - 1);
+        bottleGraphics[bottleIndex].SetGraphicNone(ballList.Count - 1);
+        previewBall.SetColor(BallGraphic.ConvertFromGameType(b.type));
+        previewBall.transform.position = ballPosition;
+        previewBall.gameObject.SetActive(true);
+        
+        while (Vector3.Distance(previewBall.transform.position, upPosition) > 0.005f)
+        {
+            previewBall.transform.position = Vector3.MoveTowards(previewBall.transform.position,upPosition,10*Time.deltaTime);    
+            yield return null;  
+        }
+        isSwitchingBall = false;
+    }
+    private IEnumerator MoveBallDown(int bottleIndex)
+    {
+        isSwitchingBall = true;
+        List<Game.Ball> ballList = game.bottles[bottleIndex].balls;
+
+        Vector3 downPosition = bottleGraphics[bottleIndex].GetBallPosition(ballList.Count - 1);
+        Vector3 ballPosition = bottleGraphics[bottleIndex].GetBottleUpPosition();
+
+        while (Vector3.Distance(previewBall.transform.position, downPosition) > 0.005f)
+        {
+            previewBall.transform.position = Vector3.MoveTowards(previewBall.transform.position, downPosition, 10 * Time.deltaTime);
+            yield return null;
+        }
+        previewBall.gameObject.SetActive(false);
+
+        Game.Ball b = ballList[ballList.Count - 1];
+        bottleGraphics[bottleIndex].SetGraphic(ballList.Count - 1,b.type);
+        //previewBall.transform.position = ballPosition;
+        isSwitchingBall = false;
+
+
     }
     private bool isSwitchingBall = false;
     private IEnumerator SwitchBallCoroutine(int frombottleIndex, int toBottleIndex) 
