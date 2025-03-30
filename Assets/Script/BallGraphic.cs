@@ -1,42 +1,25 @@
 using UnityEngine;
 
-public enum BallGraphicType
-{
-    NONE,
-    RED,
-    GREEN
-}
 public class BallGraphic : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
+    public Sprite[] sprites;
+
     private void Awake()
     {
         spriteRenderer =GetComponent<SpriteRenderer>();
     }
-    public void SetColor(BallGraphicType type)
+    public void SetColor(int type)
     {
-        switch (type)
+        if(type == 0)
         {
-            case BallGraphicType.NONE:
-                spriteRenderer.color = new Color(0,0,0,0);
-                break;
-            case BallGraphicType.RED:
-                spriteRenderer.color = Color.red;
-                break;
-            case BallGraphicType.GREEN:
-                spriteRenderer.color = Color.green;
-                break;
+            spriteRenderer.color = new Color(0,0,0,0);
         }
-    }
-    public static BallGraphicType ConvertFromGameType(Game.BallType ballType)
-    {
-        switch (ballType)
+        else
         {
-            case Game.BallType.RED:
-                return BallGraphicType.RED;
-            case Game.BallType.GREEN:
-                return BallGraphicType.GREEN;
+            int index = type - 1;
+            spriteRenderer.color = Color.white;
+            spriteRenderer.sprite = sprites[index];
         }
-        return BallGraphicType.NONE;
     }
 }

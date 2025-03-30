@@ -53,7 +53,7 @@ public class Game : MonoBehaviour
                 if (element == 0) continue;
                 b.balls.Add(new Ball
                 {
-                    type = (BallType)(element - 1)
+                    type = element
                 });
             }
             bottles.Add(b);
@@ -184,7 +184,7 @@ public class Game : MonoBehaviour
     }
     public class SwitchBallCommand
     {
-        public BallType type;
+        public int type;
         public int fromBottleIndex;
         public int fromBallIndex;
 
@@ -204,7 +204,7 @@ public class Game : MonoBehaviour
                 break;
             }
             bool sameTypeFlag = true;
-            BallType type = bottle.balls[0].type;
+            int type = bottle.balls[0].type;
             foreach(Ball ball in bottle.balls)
             {
                 if(ball.type != type)
@@ -228,16 +228,6 @@ public class Game : MonoBehaviour
     }
     public class Ball
     {
-        public BallType type;
-    }
-    public enum BallType
-    {
-        RED,
-        GREEN,
-        BLUE,
-        ORANGE,
-        MAGNETA,
-        CYAN,
-        BROWN
+        public int type;
     }
 }

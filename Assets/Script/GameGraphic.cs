@@ -29,7 +29,7 @@ public class GameGraphic : MonoBehaviour
 
             bottleGraphics.Add(bg);
 
-            List<Game.BallType> ballTypes = new List<Game.BallType>();
+            List<int> ballTypes = new List<int>();
 
             foreach (var ball in b.balls)
             {
@@ -52,7 +52,7 @@ public class GameGraphic : MonoBehaviour
             Game.Bottle gb = bottles[i];
             BottleGraphic bottleGraphic = bottleGraphics[i];
 
-            List<Game.BallType> ballTypes = new List<Game.BallType>();
+            List<int> ballTypes = new List<int>();
 
             foreach(var ball in gb.balls)
             {
@@ -68,8 +68,11 @@ public class GameGraphic : MonoBehaviour
 
         if (selectedBottleIndex == -1)
         {
-            selectedBottleIndex = bottleIndex;
-            StartCoroutine(MoveBallUp(bottleIndex));
+            if (game.bottles[bottleIndex].balls.Count != 0)
+            {
+                selectedBottleIndex = bottleIndex;
+                StartCoroutine(MoveBallUp(bottleIndex));
+            }
         }
         else
         {
@@ -92,7 +95,7 @@ public class GameGraphic : MonoBehaviour
         Game.Ball b = ballList[ballList.Count - 1];
         Vector3 ballPosition = bottleGraphics[bottleIndex].GetBallPosition(ballList.Count - 1);
         bottleGraphics[bottleIndex].SetGraphicNone(ballList.Count - 1);
-        previewBall.SetColor(BallGraphic.ConvertFromGameType(b.type));
+        previewBall.SetColor(b.type);
         previewBall.transform.position = ballPosition;
         previewBall.gameObject.SetActive(true);
         
@@ -178,12 +181,7 @@ public class GameGraphic : MonoBehaviour
         Vector3 spawnPosition = movement.Peek();
         var ballObject = Instantiate(prefabBallGraphic, spawnPosition ,Quaternion.identity);
 
-        ballObject.SetColor(BallGraphic.ConvertFromGameType(command.type));
-        //Queue<Vector3> queueMovement = new Queue<Vector3>();
-        //queueMovement.Enqueue(bottleGraphics[command.fromBottleIndex].GetBallPosition(command.fromBallIndex));
-        //queueMovement.Enqueue(bottleGraphics[command.fromBottleIndex].GetBottleUpPosition());
-        //queueMovement.Enqueue(bottleGraphics[command.toBottleIndex].GetBottleUpPosition());
-        //queueMovement.Enqueue(bottleGraphics[command.toBottleIndex].GetBallPosition(command.toBallIndex));
+        ballObject.SetColor(command.type);
 
         while (movement.Count > 0) 
         {

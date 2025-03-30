@@ -11,7 +11,7 @@ public class BottleGraphic : MonoBehaviour
     {
         gameGraphic.OnClickBottle(index);
     }
-    public void SetGraphic(Game.BallType[] ballTypes)
+    public void SetGraphic(int[] ballTypes)
     {
         for(int i = 0; i<ballGraphics.Length ; i++)
         {
@@ -25,23 +25,13 @@ public class BottleGraphic : MonoBehaviour
             }
         }
     }
-    public void SetGraphic(int index, Game.BallType type)
+    public void SetGraphic(int index, int type)
     {
-        BallGraphicType colorType = BallGraphicType.RED;
-        switch (type)
-        {
-            case Game.BallType.RED:
-                colorType = BallGraphicType.RED;
-                break;
-            case Game.BallType.GREEN:
-                colorType = BallGraphicType.GREEN;
-                break;
-        }
-        ballGraphics[index].SetColor(colorType);
+        ballGraphics[index].SetColor(type);
     }
     public void SetGraphicNone(int index)
     {
-        ballGraphics[index].SetColor(BallGraphicType.NONE);  
+        ballGraphics[index].SetColor(0);  
     }
 
     public Vector3 GetBallPosition(int index)
