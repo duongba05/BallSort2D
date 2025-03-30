@@ -167,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &461957203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 461957202}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.41, y: 0, z: 0}
+  m_LocalPosition: {x: -1.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -240,7 +240,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.45}
+  m_Offset: {x: 0.013727665, y: 1.4774559}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -250,7 +250,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 4.15502}
+  m_Size: {x: 1.1921887, y: 4.209931}
   m_EdgeRadius: 0
 --- !u!1 &501912233
 GameObject:
@@ -484,7 +484,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -9.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,7 +805,7 @@ Transform:
   m_GameObject: {fileID: 660387139}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.77, y: 5.18, z: 0}
+  m_LocalPosition: {x: 0.97, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1299,6 +1299,7 @@ GameObject:
   - component: {fileID: 868852410}
   - component: {fileID: 868852409}
   - component: {fileID: 868852411}
+  - component: {fileID: 868852412}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1348,12 +1349,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedBottleIndex: -1
   game: {fileID: 868852409}
-  bottleGraphics:
-  - {fileID: 2002129253}
-  - {fileID: 461957203}
-  - {fileID: 1750688373}
-  - {fileID: 1227385567}
+  bottleGraphics: []
   prefabBallGraphic: {fileID: 660387140}
+  prefabBottleGraphic: {fileID: 2002129253}
+  bottleStartPosition: {x: -5, y: -1.5, z: 0}
+  bottleDistance: {x: 3.5, y: 0, z: 0}
+--- !u!114 &868852412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868852408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdb13ce047fd34478dac776a187bdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 868852409}
+  textAsset: {fileID: 4900000, guid: eff6b50ba3f01934399d5ab3e4233700, type: 3}
 --- !u!1 &924845916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,7 +1925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1227385566
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1946,7 +1960,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.45}
+  m_Offset: {x: 0.011957169, y: 1.4798915}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1956,7 +1970,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 4.15502}
+  m_Size: {x: 1.1434808, y: 4.2148037}
   m_EdgeRadius: 0
 --- !u!114 &1227385567
 MonoBehaviour:
@@ -1987,7 +2001,7 @@ Transform:
   m_GameObject: {fileID: 1227385565}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.09, y: 0, z: 0}
+  m_LocalPosition: {x: 3.38, y: -1.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2479,7 +2493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1750688372
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2514,7 +2528,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.45}
+  m_Offset: {x: 0, y: 1.4798918}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2524,7 +2538,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 4.15502}
+  m_Size: {x: 1.1195669, y: 4.2148037}
   m_EdgeRadius: 0
 --- !u!114 &1750688373
 MonoBehaviour:
@@ -2555,7 +2569,7 @@ Transform:
   m_GameObject: {fileID: 1750688371}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.85, y: 0, z: 0}
+  m_LocalPosition: {x: 1.1399999, y: -1.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3068,7 +3082,7 @@ Transform:
   m_GameObject: {fileID: 2002129251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.63, y: 5.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3131,7 +3145,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.45}
+  m_Offset: {x: 0.00463748, y: 1.459275}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3141,7 +3155,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 4.15502}
+  m_Size: {x: 1.1391253, y: 4.17357}
   m_EdgeRadius: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -3153,5 +3167,5 @@ SceneRoots:
   - {fileID: 2002129252}
   - {fileID: 461957204}
   - {fileID: 1750688374}
-  - {fileID: 660387142}
   - {fileID: 1227385568}
+  - {fileID: 660387142}

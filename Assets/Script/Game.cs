@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -8,32 +8,58 @@ public class Game : MonoBehaviour
 {
     public GameGraphic graphic;
     public List<Bottle> bottles;
-    private IEnumerator Start()
+    //private IEnumerator Start()
+    //{
+    //    bottles = new List<Bottle>();
+    //    bottles.Add(new Bottle
+    //    {
+    //        balls = new List<Ball> { new Ball {type = BallType.RED }, new Ball { type = BallType.GREEN }, new Ball { type = BallType.GREEN } }
+    //    });
+    //    bottles.Add(new Bottle
+    //    {
+    //        balls = new List<Ball> { new Ball { type = BallType.RED }, new Ball { type = BallType.RED }, new Ball { type = BallType.GREEN } }
+    //    });
+    //    bottles.Add(new Bottle
+    //    {
+    //        balls = new List<Ball>()
+    //    });
+    //    bottles.Add(new Bottle
+    //    {
+    //        balls = new List<Ball>()
+    //    });
+    //    graphic.RefreshBottleGraphic(bottles);
+    //    yield return new WaitForSeconds(0.2f); 
+    //    //PrintBottles();
+    //    //switch ball tu 1 sang 2
+    //    //SwitchBall(bottles[0], bottles[1]);
+    //    //graphic.RefreshBottleGraphic(bottles);
+    //    //PrintBottles();
+    //}
+    public void LoadLevel(List<int[]> listArray)
     {
+        if (graphic == null)
+        {
+            Debug.LogError("graphic chưa được gán! Hãy đảm bảo bạn đã kéo thả GameGraphic vào Inspector.");
+            return;
+        }
+
         bottles = new List<Bottle>();
-        bottles.Add(new Bottle
+        foreach (int[] arr in listArray)
         {
-            balls = new List<Ball> { new Ball {type = BallType.RED }, new Ball { type = BallType.GREEN }, new Ball { type = BallType.GREEN } }
-        });
-        bottles.Add(new Bottle
-        {
-            balls = new List<Ball> { new Ball { type = BallType.RED }, new Ball { type = BallType.RED }, new Ball { type = BallType.GREEN } }
-        });
-        bottles.Add(new Bottle
-        {
-            balls = new List<Ball>()
-        });
-        bottles.Add(new Bottle
-        {
-            balls = new List<Ball>()
-        });
-        graphic.RefreshBottleGraphic(bottles);
-        yield return new WaitForSeconds(2f); 
-        //PrintBottles();
-        //switch ball tu 1 sang 2
-        //SwitchBall(bottles[0], bottles[1]);
-        //graphic.RefreshBottleGraphic(bottles);
-        //PrintBottles();
+            Bottle b = new Bottle { balls = new List<Ball>() }; // Đảm bảo balls không bị null
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int element = arr[i];
+                if (element == 0) continue;
+                b.balls.Add(new Ball
+                {
+                    type = (BallType)(element - 1)
+                });
+            }
+            bottles.Add(b);
+        }
+
+        graphic.CreateBottleGraphic(bottles);
     }
     public void PrintBottles()
     {

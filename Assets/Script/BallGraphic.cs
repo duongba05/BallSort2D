@@ -9,7 +9,7 @@ public enum BallGraphicType
 public class BallGraphic : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
-    private void Start()
+    private void Awake()
     {
         spriteRenderer =GetComponent<SpriteRenderer>();
     }
