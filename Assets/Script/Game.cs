@@ -8,33 +8,6 @@ public class Game : MonoBehaviour
 {
     public GameGraphic graphic;
     public List<Bottle> bottles;
-    //private IEnumerator Start()
-    //{
-    //    bottles = new List<Bottle>();
-    //    bottles.Add(new Bottle
-    //    {
-    //        balls = new List<Ball> { new Ball {type = BallType.RED }, new Ball { type = BallType.GREEN }, new Ball { type = BallType.GREEN } }
-    //    });
-    //    bottles.Add(new Bottle
-    //    {
-    //        balls = new List<Ball> { new Ball { type = BallType.RED }, new Ball { type = BallType.RED }, new Ball { type = BallType.GREEN } }
-    //    });
-    //    bottles.Add(new Bottle
-    //    {
-    //        balls = new List<Ball>()
-    //    });
-    //    bottles.Add(new Bottle
-    //    {
-    //        balls = new List<Ball>()
-    //    });
-    //    graphic.RefreshBottleGraphic(bottles);
-    //    yield return new WaitForSeconds(0.2f); 
-    //    //PrintBottles();
-    //    //switch ball tu 1 sang 2
-    //    //SwitchBall(bottles[0], bottles[1]);
-    //    //graphic.RefreshBottleGraphic(bottles);
-    //    //PrintBottles();
-    //}
     public void LoadLevel(List<int[]> listArray)
     {
         if (graphic == null)
