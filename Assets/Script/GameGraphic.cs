@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,8 +64,13 @@ public class GameGraphic : MonoBehaviour
     public void OnClickBottle(int bottleIndex)
     {
         Debug.Log("Click bottle index: " + bottleIndex);
+
         if (isSwitchingBall) return;
 
+        if (game.IsBottleComplete(bottleIndex))
+        {
+            return;
+        }
         if (selectedBottleIndex == -1)
         {
             if (game.bottles[bottleIndex].balls.Count != 0)
@@ -76,10 +81,10 @@ public class GameGraphic : MonoBehaviour
         }
         else
         {
-            if(selectedBottleIndex == bottleIndex)
+            if (selectedBottleIndex == bottleIndex)
             {
                 StartCoroutine(MoveBallDown(bottleIndex));
-                selectedBottleIndex=-1;
+                selectedBottleIndex = -1;
             }
             else
             {
@@ -87,8 +92,14 @@ public class GameGraphic : MonoBehaviour
             }
         }
     }
+
     private IEnumerator MoveBallUp(int bottleIndex)
     {
+        if (game.IsBottleComplete(bottleIndex))  
+        {
+            yield break;
+        }
+
         isSwitchingBall = true;
         List<Game.Ball> ballList = game.bottles[bottleIndex].balls;
         Vector3 upPosition = bottleGraphics[bottleIndex].GetBottleUpPosition();
@@ -98,14 +109,15 @@ public class GameGraphic : MonoBehaviour
         previewBall.SetColor(b.type);
         previewBall.transform.position = ballPosition;
         previewBall.gameObject.SetActive(true);
-        
+
         while (Vector3.Distance(previewBall.transform.position, upPosition) > 0.005f)
         {
-            previewBall.transform.position = Vector3.MoveTowards(previewBall.transform.position,upPosition,10*Time.deltaTime);    
-            yield return null;  
+            previewBall.transform.position = Vector3.MoveTowards(previewBall.transform.position, upPosition, 10 * Time.deltaTime);
+            yield return null;
         }
         isSwitchingBall = false;
     }
+
     private IEnumerator MoveBallDown(int bottleIndex)
     {
         isSwitchingBall = true;

@@ -8,6 +8,11 @@ public class Game : MonoBehaviour
 {
     public GameGraphic graphic;
     public List<Bottle> bottles;
+    public Game game;
+
+    public BottleGraphic bottleGraphic;
+    public GameObject complete;
+
     public void LoadLevel(List<int[]> listArray)
     {
         if (graphic == null)
@@ -193,6 +198,7 @@ public class Game : MonoBehaviour
             }
 
         }
+
         return winFlag; 
     }
     public class Bottle
@@ -203,4 +209,19 @@ public class Game : MonoBehaviour
     {
         public int type;
     }
+    public bool IsBottleComplete(int bottleIndex)
+    {
+        Game.Bottle bottle = game.bottles[bottleIndex];
+
+        if (bottle.balls.Count != 4) return false;
+
+        int firstBallType = bottle.balls[0].type;
+        foreach (var ball in bottle.balls)
+        {
+            if (ball.type != firstBallType) return false;
+        }
+
+        return true;
+    }
+
 }

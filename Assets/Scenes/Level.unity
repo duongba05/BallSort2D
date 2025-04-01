@@ -1661,6 +1661,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphic: {fileID: 868852411}
+  game: {fileID: 868852409}
+  bottleGraphic: {fileID: 2002129253}
+  complete: {fileID: 8953720186920372943, guid: f6e25f467bedfff49b878ffcdfa978e0, type: 3}
 --- !u!4 &868852410
 Transform:
   m_ObjectHideFlags: 0
@@ -1694,7 +1697,7 @@ MonoBehaviour:
   prefabBallGraphic: {fileID: 660387140}
   prefabBottleGraphic: {fileID: 2002129253}
   bottleStartPosition: {x: -5, y: -1.5, z: 0}
-  bottleDistance: {x: 1, y: 0, z: 0}
+  bottleDistance: {x: 2, y: 0, z: 0}
 --- !u!114 &868852412
 MonoBehaviour:
   m_ObjectHideFlags: 0
