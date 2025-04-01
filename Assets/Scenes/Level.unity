@@ -1694,7 +1694,7 @@ MonoBehaviour:
   prefabBallGraphic: {fileID: 660387140}
   prefabBottleGraphic: {fileID: 2002129253}
   bottleStartPosition: {x: -5, y: -1.5, z: 0}
-  bottleDistance: {x: 3.5, y: 0, z: 0}
+  bottleDistance: {x: 1, y: 0, z: 0}
 --- !u!114 &868852412
 MonoBehaviour:
   m_ObjectHideFlags: 0

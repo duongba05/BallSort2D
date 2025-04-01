@@ -14,10 +14,6 @@ public class GameLevelReader : MonoBehaviour
     {
         string[] lines = textAsset.text.Split(new string[] { "\n", "\r" }, System.StringSplitOptions.RemoveEmptyEntries);
         Debug.Log(lines.Length);
-        //foreach(var line in lines)
-        //{
-        //    // Debug.Log(line);
-        //}
         int bottleCount = 0;
         int ballPerBottle = 0;
         List<int[]> bottleArrays = new List<int[]>();
