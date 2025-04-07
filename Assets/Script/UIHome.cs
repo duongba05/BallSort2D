@@ -11,7 +11,7 @@ public class UIHome : MonoBehaviour
     public GameObject obj_hint;
     public TextMeshProUGUI text_hint;
 
-    public System.Action OnClickButtonSettings;
+    public System.Action OnClickButtonSettings; 
     public System.Action OnClickButtonNextLevel;
     public System.Action OnClickButtonRestart;
     public System.Action OnClickButtonRedo;

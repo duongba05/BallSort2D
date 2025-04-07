@@ -8,12 +8,12 @@ public class GameGraphic : MonoBehaviour
 {
     public int selectedBottleIndex = -1;
     public Game game;
-    public List<BottleGraphic> bottleGraphics;
-    public BallGraphic prefabBallGraphic;
-    public BottleGraphic prefabBottleGraphic;
-    private BallGraphic previewBall;
-    public Vector3 bottleStartPosition;
-    public Vector3 bottleDistance;
+    public List<BottleGraphic> bottleGraphics;// ống 
+    public BallGraphic prefabBallGraphic; // tạo bóng mới
+    public BottleGraphic prefabBottleGraphic; // tạo ống mới 
+    private BallGraphic previewBall; // xem trước 
+    public Vector3 bottleStartPosition; // vị trí ban đầu ống 
+    public Vector3 bottleDistance; // khoảng cách 2 ống
     private void Start()
     {
         game = FindObjectOfType<Game>();
@@ -21,7 +21,7 @@ public class GameGraphic : MonoBehaviour
 
         previewBall =Instantiate(prefabBallGraphic);
     }
-    public void CreateBottleGraphic(List<Game.Bottle> bottles)
+    public void CreateBottleGraphic(List<Game.Bottle> bottles) // tạo giao diện các ống nghiệm 
     {
         foreach (Game.Bottle b in bottles)
         {
@@ -45,9 +45,9 @@ public class GameGraphic : MonoBehaviour
             bottleGraphics[i].index = i;
         }
     }
-    public void RefreshBottleGraphic(List<Game.Bottle> bottles)
+    public void RefreshBottleGraphic(List<Game.Bottle> bottles) // cập nhật giao diện các ống 
     {
-        for(int i = 0; i < bottles.Count; i++)
+        for(int i = 0; i < bottles.Count; i++)// duyệt từng ống 
         {
             Game.Bottle gb = bottles[i];
             BottleGraphic bottleGraphic = bottleGraphics[i];
@@ -61,13 +61,13 @@ public class GameGraphic : MonoBehaviour
             bottleGraphic.SetGraphic(ballTypes.ToArray());
         }
     }
-    public void OnClickBottle(int bottleIndex)
+    public void OnClickBottle(int bottleIndex) // xử lý người chơi nhấn vào ống 
     {
         Debug.Log("Click bottle index: " + bottleIndex);
 
         if (isSwitchingBall) return;
 
-        if (game.IsBottleComplete(bottleIndex))
+        if (game.bottles[bottleIndex].balls.Count == 0 || game.IsBottleComplete(bottleIndex))
         {
             return;
         }
@@ -76,27 +76,28 @@ public class GameGraphic : MonoBehaviour
             if (game.bottles[bottleIndex].balls.Count != 0)
             {
                 selectedBottleIndex = bottleIndex;
-                StartCoroutine(MoveBallUp(bottleIndex));
+                StartCoroutine(MoveBallUp(bottleIndex)); // di chuyển bóng lên 
             }
         }
         else
         {
             if (selectedBottleIndex == bottleIndex)
             {
-                StartCoroutine(MoveBallDown(bottleIndex));
+                StartCoroutine(MoveBallDown(bottleIndex)); // di chuyển bóng xuống 
                 selectedBottleIndex = -1;
             }
             else
             {
-                StartCoroutine(SwitchBallCoroutine(selectedBottleIndex, bottleIndex));
+                StartCoroutine(SwitchBallCoroutine(selectedBottleIndex, bottleIndex)); // nhấn ống khác thì chuyển bóng 
             }
         }
     }
 
     private IEnumerator MoveBallUp(int bottleIndex)
     {
-        if (game.IsBottleComplete(bottleIndex))  
+        if (game.IsBottleComplete(bottleIndex))
         {
+            Debug.Log("Bottle is complete, skipping MoveBallUp.");
             yield break;
         }
 

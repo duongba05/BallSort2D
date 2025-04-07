@@ -15,8 +15,4 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("ShareGame game click");
     }
-    public void MusicGame()
-    {
-        Debug.Log("MusicGame game click");
-    }
 }

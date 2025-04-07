@@ -1,15 +1,28 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class GameLevelReader : MonoBehaviour
 {
     public Game game;
-    public TextAsset textAsset;
+
     private void Start()
     {
-        LoadLevel(textAsset);
+        int currentLevel = PlayerPrefs.GetInt("Level", 0);
+
+        string path = string.Format("Levels/level_{0}", currentLevel + 1);
+
+        TextAsset textAsset = Resources.Load<TextAsset>(path);
+
+        if (textAsset != null)
+        {
+            LoadLevel(textAsset);
+        }
+        else
+        {
+            Debug.LogError("Level file not found at path: " + path);
+        }
     }
+
     public void LoadLevel(TextAsset textAsset)
     {
         string[] lines = textAsset.text.Split(new string[] { "\n", "\r" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -17,14 +30,15 @@ public class GameLevelReader : MonoBehaviour
         int bottleCount = 0;
         int ballPerBottle = 0;
         List<int[]> bottleArrays = new List<int[]>();
-        for (int i = 0; i < lines.Length; i++) 
+
+        for (int i = 0; i < lines.Length; i++)
         {
-            string line = lines[i]; 
+            string line = lines[i];
             Debug.Log(line);
 
             if (i == 0)
             {
-                string[] line0Split = line.Split(new char[] {',' }, System.StringSplitOptions.RemoveEmptyEntries);
+                string[] line0Split = line.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
                 bottleCount = int.Parse(line0Split[0]);
                 ballPerBottle = int.Parse(line0Split[1]);
             }
@@ -40,6 +54,7 @@ public class GameLevelReader : MonoBehaviour
         }
         game.LoadLevel(bottleArrays);
     }
+
     private int CharacterToInt(char c)
     {
         switch (c)
